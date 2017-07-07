@@ -15,24 +15,24 @@ define([], function() {
        createDisplay() {
            document.title = this.title;
            let body = document.body;
-           body.innerHTML = (`<canvas id='canvas' width=${this.width} height=${this.height}></canvas>`);
+           body.innerHTML = (`<canvas id='canvas' width=${this.width} height=${this.height} ></canvas>`);
            this.graphics = document.getElementById('canvas').getContext('2d');
        }
 
        // Getters
-       get getTitle() {
+       getTitle() {
            return this.title;
        }
 
-       get getWidth() {
+       getWidth() {
            return this.width;
        }
 
-       get getHeight() {
+       getHeight() {
            return this.height;
        }
 
-       get getGraphics() {
+       getGraphics() {
            return this.graphics;
        }
    }
