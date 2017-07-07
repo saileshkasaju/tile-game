@@ -1,11 +1,14 @@
 /**
  * Created by sailesh on 7/7/17.
  */
-define(['Display'], function(Display) {
+define(['Display', 'Assets'], function(Display, Assets) {
 
     let _this;
     let running = false;
     let title, width, height, g, display;
+    let ast = new Assets("test", "res/textures/mario.png", Assets.DEFAULT_WIDTH, Assets.DEFAULT_HEIGHT);
+    let img = ast.sheet.crop(0, 0, 32, 45);
+    let img1 = ast.sheet.crop(32, 0, 25, 40);
 
     class Game {
 
@@ -53,14 +56,15 @@ define(['Display'], function(Display) {
         display = new Display(this.title, this.width, this.height);
         g = display.getGraphics();
     }
-    let x = 20;
-    let y = 30;
+    // let img = Assets.loadImage("https://s-media-cache-ak0.pinimg.com/originals/ff/8c/e7/ff8ce7ca004f619b451bd93be3370f6e.jpg");
     function tick(_td) {
-        x += 20* _td;
+
     }
     function render() {
         g.clearRect(0, 0, width, height);
-        g.fillRect(x, y, 200, 50);
+        // g.drawImage(img, 20, 20);
+        g.myDrawImage(img, 10, 15, 32, 32);
+        g.myDrawImage(img1, 40, 15, 32, 32);
     }
 
     return Game;

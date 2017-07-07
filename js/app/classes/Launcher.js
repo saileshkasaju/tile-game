@@ -6,6 +6,7 @@ define(['Game'], function(Game) {
         constructor(_title, _width, _height) {
             var game = new Game(_title, _width, _height);
             game.start();
+            document.title = _title;
         }
     }
 

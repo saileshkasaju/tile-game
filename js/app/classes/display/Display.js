@@ -37,5 +37,9 @@ define([], function() {
        }
    }
 
+   CanvasRenderingContext2D.prototype.myDrawImage = function(asset, _x, _y, _width, _height) {
+       this.drawImage(asset.sheet, asset.x, asset.y, asset.width, asset.height, _x, _y, _width, _height)
+   };
+
    return Display;
 });
