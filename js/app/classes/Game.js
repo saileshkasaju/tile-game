@@ -1,11 +1,11 @@
 /**
  * Created by sailesh on 7/7/17.
  */
-define(['Display', 'State', 'GameState'], function(Display, State, GameState) {
+define(['Display', 'State', 'GameState', 'KeyManager', 'Handler'], function(Display, State, GameState, KeyManager, Handler) {
 
     let _this;
     let running = false;
-    let title, width, height, g, display;
+    let title, width, height, g, display, keyManager, handler;
     let gameState, menuState, settingsState;
     class Game {
 
@@ -14,6 +14,7 @@ define(['Display', 'State', 'GameState'], function(Display, State, GameState) {
             title = _title;
             width = _width;
             height = _height;
+            keyManager = new KeyManager();
         }
 
         run() {
@@ -48,14 +49,25 @@ define(['Display', 'State', 'GameState'], function(Display, State, GameState) {
             running = true;
             this.run();
         }
+        getKeyManager() {
+            return keyManager;
+        }
+        getWidth() {
+            return width;
+        }
+        getHeight() {
+            return height;
+        }
     }
     function init() {
         display = new Display(title, width, height);
         g = display.getGraphics();
-        gameState = new GameState();
+        handler = new Handler(_this);
+        gameState = new GameState(handler);
         State.setState(gameState);
     }
     function tick(_dt) {
+        keyManager.tick();
         if (State.getState() !== null) {
             State.getState().tick(_dt);
         }

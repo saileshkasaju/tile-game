@@ -5,9 +5,10 @@ define([], function() {
    let currentState = null;
 
    class State {
-       constructor() {
-
+       constructor(_handler) {
+           this.handler = _handler;
        }
+
        tick(_dt) {
 
        }
