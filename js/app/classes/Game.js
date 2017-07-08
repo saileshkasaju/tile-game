@@ -1,15 +1,12 @@
 /**
  * Created by sailesh on 7/7/17.
  */
-define(['Display', 'Assets'], function(Display, Assets) {
+define(['Display', 'State', 'GameState'], function(Display, State, GameState) {
 
     let _this;
     let running = false;
     let title, width, height, g, display;
-    let ast = new Assets("test", "res/textures/mario.png", Assets.DEFAULT_WIDTH, Assets.DEFAULT_HEIGHT);
-    let img = ast.sheet.crop(0, 0, 32, 45);
-    let img1 = ast.sheet.crop(32, 0, 25, 40);
-
+    let gameState, menuState, settingsState;
     class Game {
 
         constructor(_title, _width, _height) {
@@ -53,18 +50,21 @@ define(['Display', 'Assets'], function(Display, Assets) {
         }
     }
     function init() {
-        display = new Display(this.title, this.width, this.height);
+        display = new Display(title, width, height);
         g = display.getGraphics();
+        gameState = new GameState();
+        State.setState(gameState);
     }
-    // let img = Assets.loadImage("https://s-media-cache-ak0.pinimg.com/originals/ff/8c/e7/ff8ce7ca004f619b451bd93be3370f6e.jpg");
-    function tick(_td) {
-
+    function tick(_dt) {
+        if (State.getState() !== null) {
+            State.getState().tick(_dt);
+        }
     }
     function render() {
         g.clearRect(0, 0, width, height);
-        // g.drawImage(img, 20, 20);
-        g.myDrawImage(img, 10, 15, 32, 32);
-        g.myDrawImage(img1, 40, 15, 32, 32);
+        if (State.getState() !== null) {
+            State.getState().render(g);
+        }
     }
 
     return Game;
